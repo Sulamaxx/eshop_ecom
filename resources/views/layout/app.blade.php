@@ -16,21 +16,22 @@
     <meta charset="UTF-8">
     <!-- Site Title -->
     <title>E Shop</title>
+
     <!--
   CSS
   ============================================= -->
-    <link rel="stylesheet" href="css/linearicons.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/nouislider.min.css">
-    <link rel="stylesheet" href="css/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ asset('css/linearicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nouislider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ion.rangeSlider.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ion.rangeSlider.skinFlat.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
@@ -47,7 +48,8 @@
             <nav class="navbar navbar-expand-lg navbar-light main_box">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="/"><img src="img/logo.png" alt=""></a>
+                    <a class="navbar-brand logo_h" href="/"><img src="{{ asset('img/logo.png') }}"
+                            alt=""></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -55,25 +57,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
                             <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                            {{-- <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Shop</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="single-product.html">Product
-                                            Details</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a>
-                                    </li>
-                                </ul>
-                            </li> --}}
-
                             <li class="nav-item"><a class="nav-link" href="shop">Shop</a></li>
                             <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
                         </ul>
@@ -140,9 +126,6 @@
                                             value="" type="text">
                                     </div>
 
-                                    <!-- <div class="col-lg-4 col-md-4">
-            <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-           </div>  -->
                                 </div>
                                 <div class="info"></div>
                             </form>
@@ -153,14 +136,15 @@
                     <div class="single-footer-widget mail-chimp">
                         <h6 class="mb-20">Instragram Feed</h6>
                         <ul class="instafeed d-flex flex-wrap">
-                            <li><img src="img/i1.jpg" alt=""></li>
-                            <li><img src="img/i2.jpg" alt=""></li>
-                            <li><img src="img/i3.jpg" alt=""></li>
-                            <li><img src="img/i4.jpg" alt=""></li>
-                            <li><img src="img/i5.jpg" alt=""></li>
-                            <li><img src="img/i6.jpg" alt=""></li>
-                            <li><img src="img/i7.jpg" alt=""></li>
-                            <li><img src="img/i8.jpg" alt=""></li>
+                            <li><img src="{{ asset('img/i1.jpg') }}" alt=""></li>
+                            <li><img src="{{ asset('img/i2.jpg') }}" alt=""></li>
+                            <li><img src="{{ asset('img/i3.jpg') }}" alt=""></li>
+                            <li><img src="{{ asset('img/i4.jpg') }}" alt=""></li>
+                            <li><img src="{{ asset('img/i5.jpg') }}" alt=""></li>
+                            <li><img src="{{ asset('img/i6.jpg') }}" alt=""></li>
+                            <li><img src="{{ asset('img/i7.jpg') }}" alt=""></li>
+                            <li><img src="{{ asset('img/i8.jpg') }}" alt=""></li>
+
                         </ul>
                     </div>
                 </div>
@@ -192,22 +176,23 @@
     </footer>
     <!-- End footer Area -->
 
-    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="{{ asset('js/vendor/jquery-2.2.4.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
     </script>
-    <script src="js/vendor/bootstrap.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.sticky.js"></script>
-    <script src="js/nouislider.min.js"></script>
-    <script src="js/countdown.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <!--gmaps Js-->
+    <script src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.ajaxchimp.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('js/nouislider.min.js') }}"></script>
+    <script src="{{ asset('js/countdown.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-    <script src="js/gmaps.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{{ asset('js/gmaps.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
 
     @yield('js-script')
 

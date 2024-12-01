@@ -1,0 +1,332 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar {
+  width: 250px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+#sidebar h3 {
+  color: #fff;
+}
+
+#sidebar ul li {
+  margin: 20px 0;
+}
+
+#sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+#page-content-wrapper {
+  margin-left: 250px;
+  transition: all 0.3s ease;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.card-body {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h5 {
+  margin-bottom: 10px;
+}
+
+.card button {
+  margin-top: 10px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+table {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+#mode-toggle {
+  cursor: pointer;
+}
+
+/* Hide Sidebar on Mobile by default */
+@media (max-width: 768px) {
+  #sidebar {
+    display: none;
+  }
+
+  #page-content-wrapper {
+    margin-left: 0;
+  }
+
+  #wrapper.active #sidebar {
+    display: block;
+    z-index: 1;
+  }
+
+  #page-content-wrapper {
+    padding: 15px;
+  }
+
+  #menu-toggle {
+    display: inline-block;
+  }
+}
+
+
+/* Unique CSS classes for Product Management Section */
+.pm-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.pm-header {
+  margin-bottom: 30px;
+}
+
+.pm-add-product-btn {
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+}
+
+.pm-table-container {
+  margin-top: 30px;
+}
+
+.pm-table {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pm-badge-active {
+  background-color: #28a745;
+}
+
+.pm-btn-edit,
+.pm-btn-delete,
+.pm-btn-deactivate {
+  margin-right: 5px;
+}
+
+.pm-modal {
+  justify-content: center;
+  align-items: center;
+}
+
+.pm-modal-dialog {
+  max-width: 600px;
+}
+
+.pm-modal-content {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.pm-form-group {
+  margin-bottom: 15px;
+}
+
+.pm-form .form-control {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pm-btn-submit {
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+
+.image-upload-container {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.image-box {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.image-box input[type="file"] {
+  display: none;
+}
+
+.image-box img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.placeholder-text {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Mobile responsiveness for tables and modals */
+@media (max-width: 768px) {
+  .pm-table {
+    font-size: 12px;
+  }
+
+  .pm-container {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+/* Customer Management Table */
+.pm-table th,
+.pm-table td {
+  vertical-align: middle;
+}
+
+.pm-table .badge {
+  font-size: 14px;
+}
+
+.pm-btn-edit,
+.pm-btn-delete,
+.pm-btn-toggle-status {
+  margin-right: 10px;
+}
+
+/* Table striped rows */
+.pm-table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Mobile responsiveness for table */
+@media (max-width: 768px) {
+
+  .pm-table th,
+  .pm-table td {
+    font-size: 14px;
+  }
+
+  .pm-btn-edit,
+  .pm-btn-delete,
+  .pm-btn-toggle-status {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+
+/* Profile Management Section */
+.pm-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pm-input {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.pm-btn-save {
+  margin-top: 20px;
+  padding: 10px 20px;
+}
+
+.pm-btn-save:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .pm-card {
+    box-shadow: none;
+    padding: 15px;
+  }
+
+  .pm-input {
+    font-size: 14px;
+  }
+
+  .pm-btn-save {
+    width: 100%;
+  }
+}
+
+
+/* Order Management Section */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.order-action-btn {
+  margin-right: 10px;
+}
+
+/* Modal Styles */
+#orderDetailsModal .modal-content {
+  border-radius: 8px;
+}
+
+#orderDetailsModal .modal-header {
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+#orderDetailsModal .modal-footer {
+  background-color: #f8f9fa;
+}
+
+#orderDetailsModal .btn-close {
+  color: white;
+}

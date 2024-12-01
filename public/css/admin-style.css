@@ -1,0 +1,46 @@
+:root {
+  --primary-color: #FF6600;
+  --secondary-color: #002366;
+  --accent-color: #FFD700;
+  --neutral-color: #F4F4F4;
+  --text-color: #000000;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--neutral-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.login-section {
+  background-color: var(--neutral-color);
+}
+
+.registration-section {
+  background-color: var(--neutral-color);
+  padding: 50px 0;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+}
+
+button.btn-primary:hover {
+  background-color: var(--secondary-color);
+}
