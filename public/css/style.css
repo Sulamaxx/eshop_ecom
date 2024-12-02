@@ -33,3 +33,43 @@
      transform: rotate(360deg);
    }
  }
+
+ .pagination-wrapper {
+   display: flex;
+   justify-content: center;
+   margin-top: 20px;
+ }
+
+ .pagination {
+   display: inline-flex;
+   list-style: none;
+   padding: 0;
+   margin: 0;
+ }
+
+ .pagination li {
+   margin: 0 5px;
+ }
+
+ .pagination a,
+ .pagination span {
+   display: block;
+   padding: 8px 12px;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+   text-decoration: none;
+   color: #007bff;
+   transition: all 0.3s ease;
+   height: 50px;
+ }
+
+ .pagination a:hover {
+   background-color: #f8f9fa;
+   border-color: #007bff;
+ }
+
+ .pagination .active span {
+   background-color: #007bff;
+   color: white;
+   border-color: #007bff;
+ }
