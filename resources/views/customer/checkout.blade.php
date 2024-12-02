@@ -20,34 +20,10 @@
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
         <div class="container">
-            <div class="returning_customer">
-                <div class="check_title">
-                    <h2>Returning Customer? <a href="#">Click here to login</a></h2>
-                </div>
-                <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
-                    customer, please proceed to the Billing & Shipping section.</p>
-                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                    <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="name" name="name">
-                        <span class="placeholder" data-placeholder="Username or Email"></span>
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <input type="password" class="form-control" id="password" name="password">
-                        <span class="placeholder" data-placeholder="Password"></span>
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <button type="submit" value="submit" class="primary-btn">login</button>
-                        <div class="creat_account">
-                            <input type="checkbox" id="f-option" name="selector">
-                            <label for="f-option">Remember me</label>
-                        </div>
-                        <a class="lost_pass" href="#">Lost your password?</a>
-                    </div>
-                </form>
-            </div>
+
             <div class="cupon_area">
                 <div class="check_title">
-                    <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
+                    <h2>Have a coupon? Enter your code</h2>
                 </div>
                 <input type="text" placeholder="Enter coupon code">
                 <a class="tp_btn" href="#">Apply Coupon</a>
@@ -128,17 +104,26 @@
                             <h2>Your Order</h2>
                             <ul class="list">
                                 <li><a href="#">Product <span>Total</span></a></li>
-                                <li><a href="#">Fresh Blackberry <span class="middle">x 02</span> <span
-                                            class="last">$720.00</span></a></li>
-                                <li><a href="#">Fresh Tomatoes <span class="middle">x 02</span> <span
-                                            class="last">$720.00</span></a></li>
-                                <li><a href="#">Fresh Brocoli <span class="middle">x 02</span> <span
-                                            class="last">$720.00</span></a></li>
+                                @php
+                                    $total = 0;
+                                @endphp
+                                @foreach ($cartItems as $item)
+                                    <li>
+                                        <a href="#">{{ $item->product->name }}
+                                            <span class="middle">x {{ $item->quantity }}</span>
+                                            <span
+                                                class="last">${{ number_format($item->product->selling_price * $item->quantity, 2) }}</span>
+                                        </a>
+                                    </li>
+                                    @php
+                                        $total += $item->product->selling_price * $item->quantity;
+                                    @endphp
+                                @endforeach
                             </ul>
-                            <ul class="list list_2">
-                                <li><a href="#">Subtotal <span>$2160.00</span></a></li>
-                                <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>
-                                <li><a href="#">Total <span>$2210.00</span></a></li>
+                            <ul class="list list_2 ">
+                                <li>Subtotal <span class="col-12">${{ number_format($total, 2) }}</span></li>
+                                <li>Shipping <span class="col-12">Flat rate: $50.00</span></li>
+                                <li>Total <span class="col-12">$2210.00</span></li>
                             </ul>
                             <div class="payment_item">
                                 <div class="radion_btn">
