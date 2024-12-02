@@ -113,5 +113,5 @@
     <!--================End Contact Success and Error message Area =================-->
 @endsection
 
-@section('js-script')
-@endsection
+@push('scripts')
+@endpush

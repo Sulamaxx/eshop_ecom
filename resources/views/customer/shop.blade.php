@@ -724,5 +724,5 @@
     </div>
 @endsection
 
-@section('js-script')
-@endsection
+@push('scripts')
+@endpush

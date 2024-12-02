@@ -207,10 +207,12 @@
                                     </div>
                                     <div class="prd-bottom">
 
-                                        <a href="" class="social-info">
+                                        <a href="javascript:void(0);" class="social-info add-to-cart"
+                                            data-id="{{ $product->id }}" data-quantity="1">
                                             <span class="ti-bag"></span>
                                             <p class="hover-text">add to bag</p>
                                         </a>
+
                                         <a href="" class="social-info">
                                             <span class="lnr lnr-heart"></span>
                                             <p class="hover-text">Wishlist</p>
@@ -372,5 +374,46 @@
     <!-- End brand Area -->
 @endsection
 
-@section('js-script')
-@endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.add-to-cart').on('click', function(e) {
+                e.preventDefault();
+                let productId = $(this).data('id');
+                let quantity = $(this).data('quantity');
+
+                $.ajax({
+                    url: `/cart/add/${productId}/${quantity}`,
+                    type: 'GET',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: error,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

@@ -43,5 +43,5 @@
     <!--================End Tracking Box Area =================-->
 @endsection
 
-@section('js-script')
-@endsection
+@push('scripts')
+@endpush

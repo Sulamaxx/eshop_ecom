@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\ProductController as AdminProductController;
 use App\Http\Controllers\admin\ProductManagementController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\CheckOutController;
 use App\Http\Controllers\customer\HomeController;
@@ -43,15 +43,32 @@ Route::get('/admin-registration', function () {
 
 
 
+
+
 // Customer Endpoints
+Route::get('/login', [AuthController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'showRegistrationForm']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', function () {
     return view('customer.contact');
 });
+
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
-// Route::get('/single-product', [ProductController::class, 'index'])->name('single-product');
 Route::get('/single-product/{id}', [ProductController::class, 'index'])->name('single-product');
-Route::get('/cart', [CartController::class, 'index'])->name('cart');
-Route::get('/checkout', [CheckOutController::class, 'index'])->name('checkout');
-Route::get('/confirmation', [CheckOutController::class, 'invoice'])->name('confirmation');
-Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
+
+Route::get('/cart/add/{id}/{qty}', [CartController::class, 'addToCartSingle']);
+Route::post('/cart/add/{id}', [CartController::class, 'addToCart']);
+Route::post('/cart/update', [CartController::class, 'updateCart']);
+Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout', [CheckoutController::class, 'submitOrder']);
+    Route::get('/confirmation', [CheckOutController::class, 'invoice'])->name('order.summary');
+    Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
+});
