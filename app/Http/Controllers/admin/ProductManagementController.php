@@ -107,7 +107,7 @@ class ProductManagementController extends Controller
             $product->save();
 
             return  redirect()->back()->with('success', 'Product updated successfully.');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return back()->withInput()->with('error', 'Failed to update product: ' . $e->getMessage());
         }
     }
@@ -130,7 +130,7 @@ class ProductManagementController extends Controller
             $product->delete();
 
             return redirect()->back()->with('success', 'Product deleted successfully');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return back()->withInput()->with('error', 'Failed to deleted product: ' . $e->getMessage());
         }
     }

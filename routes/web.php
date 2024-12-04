@@ -60,15 +60,19 @@ Route::get('/contact', function () {
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/single-product/{id}', [ProductController::class, 'index'])->name('single-product');
 
-Route::get('/cart/add/{id}/{qty}', [CartController::class, 'addToCartSingle']);
-Route::post('/cart/add/{id}', [CartController::class, 'addToCart']);
+Route::get('/cart/add/{id}/{qty}', [CartController::class, 'addToCart']);
 Route::post('/cart/update', [CartController::class, 'updateCart']);
 Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('/rate-product', [ProductController::class, 'rateProduct']);
     Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
-    Route::post('/checkout', [CheckoutController::class, 'submitOrder']);
+    Route::post('/checkout', [CheckoutController::class, 'submitOrder'])->name('checkout.submit');
+
+    Route::get('/payment-process/{id}', [CheckoutController::class, 'processPayment'])->name('payment.process');
+
     Route::get('/confirmation', [CheckOutController::class, 'invoice'])->name('order.summary');
+
     Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 });

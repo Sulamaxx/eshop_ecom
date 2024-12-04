@@ -11,7 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-
+    protected $table = 'users';
     protected $fillable = ['fname', 'lname', 'contact', 'email', 'password', 'role'];
 
     protected $hidden = [
@@ -26,5 +26,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function addresses()
+    {
+        return $this->hasMany(BillingAddress::class);
     }
 }

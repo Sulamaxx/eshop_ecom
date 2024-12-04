@@ -17,23 +17,13 @@ class CartController extends Controller
         $this->cartService = $cartService;
     }
 
-    public function addToCartSingle($id, $qty)
+    public function addToCart($id, $qty)
     {
         try {
             $this->addToCartProcessor($id, $qty);
             return response()->json(['success' => true, 'message' => 'Product added to cart']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error', $e->getMessage()]);
-        }
-    }
-
-    public function addToCart(Request $request, $id)
-    {
-        try {
-            $this->addToCartProcessor($id, $request->input('quantity', 1));
-            return redirect()->back()->with('success', 'Product added to cart');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -82,6 +72,7 @@ class CartController extends Controller
             return response()->json(['success' => false, 'error', $e->getMessage()]);
         }
     }
+
 
     public function removeFromCart($id)
     {

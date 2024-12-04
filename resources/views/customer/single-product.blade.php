@@ -1,6 +1,27 @@
 @extends('layout.app')
 
 @section('content')
+    <style>
+        .list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .list li {
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .list li i {
+            font-size: 24px;
+            color: gray;
+        }
+
+        .list li.filled i {
+            color: gold;
+        }
+    </style>
     <!-- Start Banner Area -->
     <section class="banner-area organic-breadcrumb">
         <div class="container">
@@ -64,7 +85,8 @@
                                 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                         </div>
                         <div class="card_area d-flex align-items-center">
-                            <a class="primary-btn" href="">Add to Cart</a>
+                            <a class="primary-btn add-to-cart-single" href="javascript:void(0);"
+                                data-id="{{ $product->id }}">Add to Cart</a>
                             <a class="icon_btn" href=""><i class="lnr lnr lnr-heart"></i></a>
                         </div>
                     </div>
@@ -103,7 +125,7 @@
                                 <div class="review_item">
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="img/product/review-1.png" alt="">
+                                            <img src="{{ asset('img/product/review-1.png') }}" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>Blake Ruiz</h4>
@@ -111,16 +133,11 @@
                                             <a class="reply_btn" href="#">Reply</a>
                                         </div>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea
-                                        commodo</p>
                                 </div>
                                 <div class="review_item reply">
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="img/product/review-2.png" alt="">
+                                            <img src="{{ asset('img/product/review-2.png') }}" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>Blake Ruiz</h4>
@@ -128,16 +145,11 @@
                                             <a class="reply_btn" href="#">Reply</a>
                                         </div>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea
-                                        commodo</p>
                                 </div>
                                 <div class="review_item">
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="img/product/review-3.png" alt="">
+                                            <img src="{{ asset('img/product/review-3.png') }}" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>Blake Ruiz</h4>
@@ -145,11 +157,6 @@
                                             <a class="reply_btn" href="#">Reply</a>
                                         </div>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea
-                                        commodo</p>
                                 </div>
                             </div>
                         </div>
@@ -194,150 +201,79 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="row total_rate">
-                                <div class="col-6">
+                                <div class="col-12">
                                     <div class="box_total">
                                         <h5>Overall</h5>
-                                        <h4>4.0</h4>
-                                        <h6>(03 Reviews)</h6>
+                                        <h4>
+                                            @php
+                                                $totalRatings = $product_rates->sum('rating');
+                                                $totalReviews = $product_rates->count();
+                                                $overallRating = $totalReviews > 0 ? $totalRatings / $totalReviews : 0;
+                                            @endphp
+                                            {{ number_format($overallRating, 1) }}
+                                        </h4>
+                                        <h6>({{ $totalReviews }} Reviews)</h6>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="rating_list">
-                                        <h3>Based on 3 Reviews</h3>
-                                        <ul class="list">
-                                            <li><a href="#">5 Star <i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">4 Star <i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">3 Star <i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">2 Star <i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                            <li><a href="#">1 Star <i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                        class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                             </div>
-                            <div class="review_list">
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="img/product/review-1.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="img/product/review-2.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="img/product/review-3.png" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Blake Ruiz</h4>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et
-                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea
-                                        commodo</p>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="col-lg-6">
                             <div class="review_box">
                                 <h4>Add a Review</h4>
                                 <p>Your Rating:</p>
-                                <ul class="list">
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                </ul>
-                                <p>Outstanding</p>
-                                <form class="row contact_form" action="contact_process.php" method="post"
-                                    id="contactForm" novalidate="novalidate">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                placeholder="Your Full name" onfocus="this.placeholder = ''"
-                                                onblur="this.placeholder = 'Your Full name'">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="email" name="email"
-                                                placeholder="Email Address" onfocus="this.placeholder = ''"
-                                                onblur="this.placeholder = 'Email Address'">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="number" name="number"
-                                                placeholder="Phone Number" onfocus="this.placeholder = ''"
-                                                onblur="this.placeholder = 'Phone Number'">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Review"
-                                                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 text-right">
-                                        <button type="submit" value="submit" class="primary-btn">Submit Now</button>
-                                    </div>
-                                </form>
+                                @if (count($own_rate) > 0)
+                                    <ul class="list">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <li data-value="{{ $i }}"
+                                                class="{{ $i <= $own_rate[0]->rating ? 'filled' : '' }}">
+                                                <i
+                                                    class="fa {{ $i <= $own_rate[0]->rating ? 'fa-star' : 'fa-star-o' }}"></i>
+                                            </li>
+                                        @endfor
+                                    </ul>
+                                @else
+                                    <ul class="list">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <li data-value="{{ $i }}">
+                                                <i class="fa fa-star-o"></i>
+                                            </li>
+                                        @endfor
+                                    </ul>
+                                @endif
                             </div>
                         </div>
-                    </div>
-                </div>
 
+                    </div>
+                    <div class="row mt-3">
+                        @if (count($product_rates) > 0)
+                            @foreach ($product_rates as $product_rate)
+                                <div class="review_item col-4">
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="{{ asset('img/product/review-1.png') }}" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <h4>{{ $product_rate->user->fname ?? 'Anonymous' }}</h4>
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= $product_rate->rating)
+                                                    <i class="fa fa-star" style="color: gold;"></i>
+                                                @else
+                                                    <i class="fa fa-star-o" style="color: gray;"></i>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+
+                </div>
             </div>
+
+        </div>
         </div>
     </section>
     <!--================End Product Description Area =================-->
@@ -395,4 +331,112 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.add-to-cart-single').on('click', function(e) {
+                e.preventDefault();
+                let productId = $(this).data('id');
+                let quantity = $('.qty').val();
+                $.ajax({
+                    url: `/cart/add/${productId}/${quantity}`,
+                    type: 'GET',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: error,
+                        });
+                    }
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const stars = document.querySelectorAll(".list li");
+
+            stars.forEach(star => {
+                star.addEventListener("click", function() {
+                    const value = this.getAttribute("data-value");
+                    updateStars(value);
+
+                    $.ajax({
+                        url: `/rate-product`,
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            product_id: window.location.pathname.split('/').pop(),
+                            rating: value,
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: `You have successfully rated ${response.rating}`,
+                                });
+                                window.location.reload();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'An unknown error occurred.',
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: error,
+                            });
+                            if (error == "Unauthorized") {
+                                window.location = "/login";
+                            }
+                        },
+                    });
+                });
+            });
+
+            function updateStars(rating) {
+                stars.forEach(star => {
+                    const starValue = star.getAttribute("data-value");
+                    const icon = star.querySelector("i");
+
+                    if (!icon) {
+                        console.error("No <i> tag found inside the star element.");
+                        return;
+                    }
+
+                    if (starValue <= rating) {
+                        star.classList.add("filled");
+                        icon.className = "fa fa-star";
+                    } else {
+                        star.classList.remove("filled");
+                        icon.className = "fa fa-star-o";
+                    }
+                });
+            }
+        });
+    </script>
 @endpush
