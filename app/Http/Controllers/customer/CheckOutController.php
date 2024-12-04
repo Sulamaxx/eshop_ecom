@@ -20,12 +20,12 @@ class CheckOutController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-
+        $exist_addresses = BillingAddress::where('user_id', Auth::user()->id)->get();
         $cartItems = Cart::where('user_id', Auth::id())->get();
         if ($cartItems->count() == 0) {
             return redirect()->route('shop')->with('error', 'Please add product to cart');
         } else {
-            return view('customer.checkout', compact('cartItems'));
+            return view('customer.checkout', compact('cartItems', 'exist_addresses'));
         }
     }
 
@@ -46,18 +46,20 @@ class CheckOutController extends Controller
                 'payment_method' => 'required',
             ]);
 
-            $billingAddress = BillingAddress::create([
-                'user_id' => Auth::id(),
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'address_line1' => $request->address_line1,
-                'address_line2' => $request->address_line2,
-                'city' => $request->city,
-                'district' => $request->district,
-                'zip' => $request->zip,
-            ]);
+            if ($request->address_id == null) {
+                $billingAddress = BillingAddress::create([
+                    'user_id' => Auth::id(),
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'address_line1' => $request->address_line1,
+                    'address_line2' => $request->address_line2,
+                    'city' => $request->city,
+                    'district' => $request->district,
+                    'zip' => $request->zip,
+                ]);
+            }
 
             $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
 
@@ -70,7 +72,7 @@ class CheckOutController extends Controller
 
                 $order = Order::create([
                     'user_id' => Auth::id(),
-                    'billing_address_id' => $billingAddress->id,
+                    'billing_address_id' => $request->address_id == null ? $billingAddress->id : $request->address_id,
                     'total_amount' => ($cartItems->sum(fn($item) => $item->product->selling_price * $item->quantity) + 30),
                     'status' => 'pending',
                     'payment_status' => 'pending',
@@ -81,6 +83,7 @@ class CheckOutController extends Controller
                     OrderItem::create([
                         'order_id' => $order->id,
                         'product_id' => $cartItem->product_id,
+                        'selling_price' => $cartItem->product->selling_price,
                         'quantity' => $cartItem->quantity,
                     ]);
                 }
@@ -92,7 +95,7 @@ class CheckOutController extends Controller
                     return redirect()->route('payment.process', ['id' => $order->id]);
                 }
 
-                return redirect()->route('order.summary', compact('order'))->with('success', 'Your order has been placed.');
+                return redirect()->route('order.summary', ['id' => $order->id])->with('success', 'Your order has been placed.');
             } catch (Exception $e) {
 
                 DB::rollBack();
@@ -103,11 +106,6 @@ class CheckOutController extends Controller
             Log::error($e->getMessage());
             return back()->withInput()->with('error', 'Failed to process: ' . $e->getMessage());
         }
-    }
-
-    public function invoice()
-    {
-        return view("customer.confirmation");
     }
 
     public function processPayment($id)
@@ -122,9 +120,18 @@ class CheckOutController extends Controller
 
             Log::info($order);
 
-            return redirect()->route('order.summary', compact('order'))->with('success', 'Your order has been placed.');
+            return redirect()->route('order.summary', ['id' => $order->id])->with('success', 'Your order has been placed with card payment.');
         } catch (Exception $e) {
             return back()->with(['error' => $e->getMessage()]);
         }
+    }
+
+    public function invoice($id)
+    {
+        $order = Order::with('billing_address')->where('id', $id)->where('user_id', Auth::id())->get();
+        $order_items = OrderItem::with('product:id,name')->where('order_id', $id)->get();
+        Log::info($order);
+        Log::info($order_items);
+        return view("customer.confirmation", compact('order', 'order_items'));
     }
 }

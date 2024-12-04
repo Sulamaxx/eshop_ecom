@@ -60,9 +60,31 @@
 
                     <div class="col-lg-8 mt-5 mt-lg-0">
                         <h3>Billing Details</h3>
+
+                        @if (count($exist_addresses) > 0)
+                            <div class="form-group">
+                                <h4>Select an Existing Address</h4>
+                                @foreach ($exist_addresses as $address)
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input select-address"
+                                            name="selected_address" id="address_{{ $address->id }}"
+                                            data-address="{{ json_encode($address) }}">
+                                        <label class="form-check-label" for="address_{{ $address->id }}">
+                                            {{ $address->first_name }} {{ $address->last_name }},
+                                            {{ $address->address_line1 }}, {{ $address->address_line2 ?? '' }},
+                                            {{ $address->city }}, {{ $address->district }},
+                                            ZIP: {{ $address->zip }},
+                                            Phone: {{ $address->phone }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
                         <form class="row contact_form" action="{{ route('checkout.submit') }}" method="POST"
                             novalidate="novalidate">
                             @csrf
+                            <input type="number" id="address_id" hidden name="address_id">
                             <div class="col-md-6 form-group p_star">
                                 <input type="text" class="form-control" id="first" name="first_name" required>
                                 <span class="placeholder" data-placeholder="First name"></span>
@@ -166,4 +188,26 @@
 @endsection
 
 @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addressRadios = document.querySelectorAll('.select-address');
+
+            addressRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const address = JSON.parse(this.dataset.address);
+
+                    document.getElementById('address_id').value = address.id;
+                    document.getElementById('first').value = address.first_name;
+                    document.getElementById('last').value = address.last_name;
+                    document.getElementById('number').value = address.phone;
+                    document.getElementById('email').value = address.email;
+                    document.getElementById('add1').value = address.address_line1;
+                    document.getElementById('add2').value = address.address_line2 || '';
+                    document.getElementById('city').value = address.city;
+                    document.getElementById('district').value = address.district;
+                    document.getElementById('zip').value = address.zip;
+                });
+            });
+        });
+    </script>
 @endpush

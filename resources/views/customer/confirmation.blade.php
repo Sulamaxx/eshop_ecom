@@ -22,39 +22,33 @@
         <div class="container">
             <h3 class="title_confirmation">Thank you. Your order has been received.</h3>
             <div class="row order_d_inner">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="details_item">
                         <h4>Order Info</h4>
                         <ul class="list">
-                            <li><a href="#"><span>Order number</span> : 60235</a></li>
-                            <li><a href="#"><span>Date</span> : Los Angeles</a></li>
-                            <li><a href="#"><span>Total</span> : USD 2210</a></li>
-                            <li><a href="#"><span>Payment method</span> : Check payments</a></li>
+                            <li><span>Order number</span> : {{ $order[0]->id }}</li>
+                            <li><span>Date</span> : {{ $order[0]->created_at }}</li>
+                            <li><span>Total</span> : $ {{ number_format($order[0]->total_amount, 2) }}
+                            </li>
+                            <li><span>Payment method</span> : {{ $order[0]->payment_method }}</li>
+                            <li><span>Payment Status</span> : <span
+                                    class="bg-warning p-1 text-dark">{{ $order[0]->payment_status }}</span></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="details_item">
                         <h4>Billing Address</h4>
                         <ul class="list">
-                            <li><a href="#"><span>Street</span> : 56/8</a></li>
-                            <li><a href="#"><span>City</span> : Los Angeles</a></li>
-                            <li><a href="#"><span>Country</span> : United States</a></li>
-                            <li><a href="#"><span>Postcode </span> : 36952</a></li>
+                            <li><span>Address Line 1</span> : {{ $order[0]?->billing_address?->address_line1 }}</li>
+                            <li><span>Address Line 2</span> : {{ $order[0]?->billing_address?->address_line2 }}</li>
+                            <li><span>City</span> : {{ $order[0]?->billing_address?->city }}</li>
+                            <li><span>District</span> : {{ $order[0]?->billing_address?->district }}</li>
+                            <li><span>Postcode </span> : {{ $order[0]?->billing_address?->zip }}</li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="details_item">
-                        <h4>Shipping Address</h4>
-                        <ul class="list">
-                            <li><a href="#"><span>Street</span> : 56/8</a></li>
-                            <li><a href="#"><span>City</span> : Los Angeles</a></li>
-                            <li><a href="#"><span>Country</span> : United States</a></li>
-                            <li><a href="#"><span>Postcode </span> : 36952</a></li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
             <div class="order_details_table">
                 <h2>Order Details</h2>
@@ -68,39 +62,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <p>Pixelstore fresh Blackberry</p>
-                                </td>
-                                <td>
-                                    <h5>x 02</h5>
-                                </td>
-                                <td>
-                                    <p>$720.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>Pixelstore fresh Blackberry</p>
-                                </td>
-                                <td>
-                                    <h5>x 02</h5>
-                                </td>
-                                <td>
-                                    <p>$720.00</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>Pixelstore fresh Blackberry</p>
-                                </td>
-                                <td>
-                                    <h5>x 02</h5>
-                                </td>
-                                <td>
-                                    <p>$720.00</p>
-                                </td>
-                            </tr>
+                            @foreach ($order_items as $item)
+                                <tr>
+                                    <td>
+                                        <p>{{ $item->product->name }}</p>
+                                    </td>
+                                    <td>
+                                        <h5>x {{ $item->quantity }}</h5>
+                                    </td>
+                                    <td>
+                                        <p>${{ number_format($item->selling_price, 2) }}</p>
+                                    </td>
+                                </tr>
+                            @endforeach
+
                             <tr>
                                 <td>
                                     <h4>Subtotal</h4>
@@ -109,18 +84,19 @@
                                     <h5></h5>
                                 </td>
                                 <td>
-                                    <p>$2160.00</p>
+                                    <p>${{ number_format($order_items->sum(fn($item) => $item->selling_price * $item->quantity), 2) }}
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h4>Shipping</h4>
+                                    <h4>Delivery</h4>
                                 </td>
                                 <td>
                                     <h5></h5>
                                 </td>
                                 <td>
-                                    <p>Flat rate: $50.00</p>
+                                    <p>$30.00</p>
                                 </td>
                             </tr>
                             <tr>
@@ -131,7 +107,7 @@
                                     <h5></h5>
                                 </td>
                                 <td>
-                                    <p>$2210.00</p>
+                                    <p>${{ number_format($order[0]->total_amount, 2) }}</p>
                                 </td>
                             </tr>
                         </tbody>

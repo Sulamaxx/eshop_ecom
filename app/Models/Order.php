@@ -16,7 +16,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function billingAddress()
+    public function billing_address()
     {
         return $this->belongsTo(BillingAddress::class);
     }

@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/payment-process/{id}', [CheckoutController::class, 'processPayment'])->name('payment.process');
 
-    Route::get('/confirmation', [CheckOutController::class, 'invoice'])->name('order.summary');
+    Route::get('/confirmation/{id}', [CheckOutController::class, 'invoice'])->name('order.summary');
 
     Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 });
